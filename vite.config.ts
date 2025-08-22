@@ -1,26 +1,33 @@
 import { fileURLToPath, URL } from 'node:url';
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueDevTools from 'vite-plugin-vue-devtools';
 import Autoprefixer from 'autoprefixer';
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [vue(), vueDevTools()],
-  css: {
-    transformer: 'lightningcss',
-    postcss: {
-      plugins: [Autoprefixer()],
-    },
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "@/assets/styles/_variables.scss" as *;`,
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+
+  return {
+    plugins: [vue(), vueDevTools()],
+    css: {
+      transformer: 'lightningcss',
+      postcss: {
+        plugins: [Autoprefixer()],
+      },
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "@/assets/styles/_variables.scss" as *;`,
+        },
       },
     },
-  },
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    base: env.ASSETS_BASE,
+    build: {
+      outDir: env.OUT_DIR || './dist',
     },
-  },
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    },
+  };
 });
