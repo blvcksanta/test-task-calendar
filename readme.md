@@ -1,39 +1,14 @@
-# portfolio
+# Тестовое задание
 
-This template should help get you started developing with Vue 3 in Vite.
+## Необходимо разработать на VueJs (версия 2 и выше) компонент-календарь:
 
-## Recommended IDE Setup
+1. Нужно сделать возможность переключения месяцев, а так же выбора конкретной даты при клике.
+1. На клик по дню повесить событие, которое будет возвращать выбранную дату.
+1. При инициализации компонент может принимать свойство даты в формате "год-месяц-день" и переключать текущий месяц и день на нее. Если дата не передана, то берем текущий день.
+1. Реализовать возможность смены языка (название месяцев, дней недели).
+   Никаких ограничений в использовании справочных материалов при выполнении не накладывается (google, stackoverflow и т.д.).
+1. Код должен быть выложен на github.
+1. Запрещено копировать код или использовать нейросети. Код будет проверен на написание нейросетью и копирование из других источников.
+1. Сроки: не более 1 дня с момента получения.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-pnpm dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
+_Использованный стек при выполнении тестового задания: Vue 3, TypeScript, Pinia_
