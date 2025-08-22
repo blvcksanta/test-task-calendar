@@ -1,0 +1,28 @@
+@use 'variables' as var;
+
+* {
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+button {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var.$bg-hover-button;
+  }
+
+  &:active {
+    background-color: var.$bg-click-button;
+  }
+}
