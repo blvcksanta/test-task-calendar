@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import { computed, ref, watchEffect } from 'vue';
-import { useDayjsStore } from '@/store/useDayjsStore';
+import { useLocaleStore } from '@/store/useLocaleStore';
 import { setDate } from '@/libs/calendar';
 import VCalendarHeader from './VCalendarHeader.vue';
 import VCalendarDisplay from './VCalendarDisplay.vue';
 import type { Dayjs } from 'dayjs';
 import type { Day } from './calendar.type';
+import dayjs from 'dayjs';
 
-const store = useDayjsStore();
+const store = useLocaleStore();
 const model = defineModel<string>();
 
 const date = ref<Dayjs>(setDate(model.value));
 
 const calendarTitle = computed(() => {
-  return store.formattingDate(date.value, 'MMMM YYYY');
+  return dayjs(date.value).locale(store.currentLanguage).format('MMMM YYYY');
 });
 
 const calendarDisplay = computed(() => {

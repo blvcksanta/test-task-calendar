@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { setDate } from '@/libs/calendar';
-import { useDayjsStore } from '@/store/useDayjsStore';
+import { useLocaleStore } from '@/store/useLocaleStore';
 import type { Dayjs } from 'dayjs';
 import type { Day } from './calendar.type';
 
@@ -13,7 +13,7 @@ const emits = defineEmits<{
   click: [value: Dayjs];
 }>();
 
-const store = useDayjsStore();
+const store = useLocaleStore();
 
 function isCurrentDay(day: Dayjs) {
   return day.isSame(setDate(props.currentDay), 'day');

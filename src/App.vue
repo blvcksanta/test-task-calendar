@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useDayjsStore } from '@/store/useDayjsStore';
+import { useLocaleStore } from '@/store/useLocaleStore';
 import VCalendar from '@/components/VCalendar.vue';
 import { computed, ref } from 'vue';
 import dayjs from 'dayjs';
 
-const store = useDayjsStore();
+const store = useLocaleStore();
 
 const date = ref(dayjs(new Date()).format('YYYY-MM-DD'));
 
