@@ -1,11 +1,16 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useLocaleStore } from '@/store/useLocaleStore';
 import type { Dayjs } from 'dayjs';
-import type { Day } from './calendar.type';
+
+interface Day {
+  day: Dayjs;
+  isSameMonth: boolean;
+}
 
 const props = defineProps<{
-  currentDay?: Dayjs;
-  dateGrid: Day[][];
+  calendarState: Dayjs;
+  selectedDay?: Dayjs;
 }>();
 
 const emits = defineEmits<{
@@ -14,8 +19,32 @@ const emits = defineEmits<{
 
 const store = useLocaleStore();
 
+const calendarDisplay = computed(() => {
+  const week: Day[] = [];
+  const display: Day[][] = [];
+  const startDate = props.calendarState.startOf('month').startOf('week').subtract(1, 'day');
+  const endDate = props.calendarState.endOf('month').endOf('week');
+  const numberOfDays = endDate.diff(startDate, 'day') + 1;
+
+  for (let index = 0; index < numberOfDays; index++) {
+    const day = startDate.add(index, 'day');
+    const isSameMonth = day.isSame(props.calendarState, 'month');
+
+    week.push({
+      day,
+      isSameMonth,
+    });
+
+    if (week.length === 7) {
+      display.push([...week.splice(0, 7)]);
+    }
+  }
+
+  return display;
+});
+
 function isCurrentDay(day: Dayjs) {
-  return day.isSame(props.currentDay, 'day');
+  return day.isSame(props.selectedDay, 'day');
 }
 </script>
 
@@ -29,7 +58,7 @@ function isCurrentDay(day: Dayjs) {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(row, index) in dateGrid" :key="index">
+      <tr v-for="(row, index) in calendarDisplay" :key="index">
         <td
           v-for="{ day, isSameMonth } in row"
           :key="day.date()"

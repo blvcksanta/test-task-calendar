@@ -1,12 +1,23 @@
 <script setup lang="ts">
-defineProps<{
-  title: string;
+import { computed } from 'vue';
+import dayjs from 'dayjs';
+import { useLocaleStore } from '@/store/useLocaleStore';
+import type { Dayjs } from 'dayjs';
+
+const props = defineProps<{
+  calendarState: Dayjs;
 }>();
 
 const emits = defineEmits<{
   prev: [];
   next: [];
 }>();
+
+const store = useLocaleStore();
+
+const title = computed(() => {
+  return dayjs(props.calendarState).locale(store.currentLanguage).format('MMMM YYYY');
+});
 </script>
 
 <template>
