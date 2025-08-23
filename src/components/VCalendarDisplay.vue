@@ -23,8 +23,8 @@ const store = useLocaleStore();
 const calendarDisplay = computed(() => {
   const days: Day[] = [];
   const display: Day[][] = [];
-  const startDate = props.calendarState.startOf('month').startOf('week').subtract(1, 'day');
-  const endDate = props.calendarState.endOf('month').endOf('week').add(6, 'day');
+  const startDate = props.calendarState.startOf('month').startOf('week');
+  const endDate = props.calendarState.endOf('month').endOf('week');
   const numberOfDays = endDate.diff(startDate, 'day') + 1;
 
   for (let index = 0; index < numberOfDays; index++) {
@@ -41,11 +41,7 @@ const calendarDisplay = computed(() => {
     display.push(days.slice(index, index + 7));
   }
 
-  return display.filter((week) => {
-    return !week.every((day) => {
-      return day.isSameMonth === false;
-    });
-  });
+  return display;
 });
 
 function isCurrentDay(day: Dayjs) {

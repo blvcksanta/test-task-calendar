@@ -6,5 +6,5 @@ export function setDate(day: Dayjs | string | undefined) {
     return dayjs(day);
   }
 
-  return dayjs(new Date());
+  return dayjs(new Date()).startOf('day');
 }
