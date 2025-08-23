@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { setDate } from '@/libs/calendar';
 import { useLocaleStore } from '@/store/useLocaleStore';
 import type { Dayjs } from 'dayjs';
 import type { Day } from './calendar.type';
 
 const props = defineProps<{
-  currentDay?: string;
+  currentDay?: Dayjs;
   dateGrid: Day[][];
 }>();
 
@@ -16,7 +15,7 @@ const emits = defineEmits<{
 const store = useLocaleStore();
 
 function isCurrentDay(day: Dayjs) {
-  return day.isSame(setDate(props.currentDay), 'day');
+  return day.isSame(props.currentDay, 'day');
 }
 </script>
 
