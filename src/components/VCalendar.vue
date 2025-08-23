@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { setDate } from '@/libs/calendar';
+import dayjs from 'dayjs';
 import VCalendarHeader from './VCalendarHeader.vue';
 import VCalendarDisplay from './VCalendarDisplay.vue';
 import type { Dayjs } from 'dayjs';
@@ -22,6 +22,14 @@ const model = computed({
     emits('update:modelValue', v.format('YYYY-MM-DD'));
   },
 });
+
+function setDate(day: Dayjs | string | undefined) {
+  if (dayjs(day).isValid()) {
+    return dayjs(day);
+  }
+
+  return dayjs(new Date());
+}
 
 function onDayClick(day: Dayjs) {
   model.value = day;
