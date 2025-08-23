@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useLocaleStore } from '@/store/useLocaleStore';
+import { setDate } from '@/utils/calendar';
 import type { Dayjs } from 'dayjs';
 
 interface Day {
@@ -10,7 +11,7 @@ interface Day {
 
 const props = defineProps<{
   calendarState: Dayjs;
-  selectedDay?: Dayjs;
+  selectedDay?: string | Dayjs;
 }>();
 
 const emits = defineEmits<{
@@ -44,7 +45,7 @@ const calendarDisplay = computed(() => {
 });
 
 function isCurrentDay(day: Dayjs) {
-  return day.isSame(props.selectedDay, 'day');
+  return day.isSame(setDate(props.selectedDay), 'day');
 }
 </script>
 

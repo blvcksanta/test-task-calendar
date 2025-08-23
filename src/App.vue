@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 
 const store = useLocaleStore();
 
-const date = ref(dayjs(new Date()).format('YYYY-MM-DD'));
+const input = ref(dayjs(new Date()).format('YYYY-MM-DD'));
 
 const buttonText = computed(() => {
   const engText = 'Change lang';
@@ -18,9 +18,9 @@ const buttonText = computed(() => {
 
 <template>
   <div :class="$style.container">
-    <span :class="$style.tag">{{ date }}</span>
+    <input v-model="input" type="text" placeholder="YYYY-MM-DD" />
     <button :class="$style.button" @click="store.changeLanguage">{{ buttonText }}</button>
-    <VCalendar v-model="date" />
+    <VCalendar v-model="input" />
   </div>
 </template>
 
@@ -34,7 +34,6 @@ const buttonText = computed(() => {
   gap: 10px;
 }
 
-.tag,
 .button {
   padding: 8px 16px;
   border-radius: 4px;
