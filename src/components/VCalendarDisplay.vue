@@ -21,27 +21,31 @@ const emits = defineEmits<{
 const store = useLocaleStore();
 
 const calendarDisplay = computed(() => {
-  const week: Day[] = [];
+  const days: Day[] = [];
   const display: Day[][] = [];
   const startDate = props.calendarState.startOf('month').startOf('week').subtract(1, 'day');
-  const endDate = props.calendarState.endOf('month').endOf('week');
+  const endDate = props.calendarState.endOf('month').endOf('week').add(6, 'day');
   const numberOfDays = endDate.diff(startDate, 'day') + 1;
 
   for (let index = 0; index < numberOfDays; index++) {
     const day = startDate.add(index, 'day');
     const isSameMonth = day.isSame(props.calendarState, 'month');
 
-    week.push({
+    days.push({
       day,
       isSameMonth,
     });
-
-    if (week.length === 7) {
-      display.push([...week.splice(0, 7)]);
-    }
   }
 
-  return display;
+  for (let index = 0; index < days.length; index += 7) {
+    display.push(days.slice(index, index + 7));
+  }
+
+  return display.filter((week) => {
+    return !week.every((day) => {
+      return day.isSameMonth === false;
+    });
+  });
 });
 
 function isCurrentDay(day: Dayjs) {
